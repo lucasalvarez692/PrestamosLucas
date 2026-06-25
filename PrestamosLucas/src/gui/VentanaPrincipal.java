@@ -574,8 +574,8 @@ public class VentanaPrincipal extends JFrame {
     // ==================== MÉTODO AUXILIAR ====================
 
     /**
-     * Construye un formulario genérico con etiquetas y campos.
-     * Muy útil para no repetir código en cada diálogo.
+     * Construye un formulario genérico con etiquetas y campos
+     * Muy útil para no repetir código en cada diálogo
      */
     private JPanel buildForm(String[] labels, JComponent[] fields) {
         JPanel form = new JPanel(new GridLayout(labels.length, 2, 5, 5));
