@@ -3,19 +3,15 @@ package logica;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Representa un ítem que puede ser prestado libro, herramienta
- */
 public class Item {
 
     private String codigo;
     private String nombre;
     private String descripcion;
-    private Prestamo prestamoActual; // null si está disponible
-    private Tipo tipo;
+    private Prestamo prestamoActual;
     private List<Categoria> categorias;
+    private Tipo tipo;
 
-    // Constructor básico
     public Item(String codigo, String nombre, String descripcion, Tipo tipo) {
         this.codigo = codigo;
         this.nombre = nombre;
@@ -25,12 +21,10 @@ public class Item {
         this.prestamoActual = null;
     }
 
-    // Verifica si el ítem está disponible para préstamo
     public boolean estaDisponible() {
         return prestamoActual == null;
     }
 
-    // Métodos para manejar categorías
     public void agregarCategoria(Categoria c) {
         categorias.add(c);
     }
@@ -39,7 +33,6 @@ public class Item {
         categorias.remove(c);
     }
 
-    // Getters y Setters
     public String getCodigo() { return codigo; }
     public void setCodigo(String codigo) { this.codigo = codigo; }
 

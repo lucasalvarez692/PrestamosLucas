@@ -8,25 +8,15 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import logica.*;
 
-/**
- * Ventana principal del sistema de préstamos.
- * Tiene pestañas para: Usuarios, Ítems, Préstamos, y Catálogos (Tipos/Categorías).
- */
 public class VentanaPrincipal extends JFrame {
 
     private static final long serialVersionUID = 1L;
-
-    // Referencia a la controladora (toda la lógica pasa por aquí)
     private Controladora control;
-
-    // Modelos de tabla para cada pestaña
     private DefaultTableModel modeloUsuarios;
     private DefaultTableModel modeloItems;
     private DefaultTableModel modeloPrestamos;
     private DefaultTableModel modeloTipos;
     private DefaultTableModel modeloCategorias;
-
-    // Tablas
     private JTable tablaUsuarios;
     private JTable tablaItems;
     private JTable tablaPrestamos;
@@ -58,13 +48,10 @@ public class VentanaPrincipal extends JFrame {
         cargarCategorias();
     }
 
-    // ==================== PANEL USUARIOS ====================
-
     private JPanel panelUsuarios() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Columnas de la tabla
         String[] cols = {"Nombre", "Teléfono", "Email", "Préstamos Activos"};
         modeloUsuarios = new DefaultTableModel(cols, 0) {
             private static final long serialVersionUID = 1L;
@@ -73,7 +60,6 @@ public class VentanaPrincipal extends JFrame {
         tablaUsuarios = new JTable(modeloUsuarios);
         tablaUsuarios.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-        // Botones
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JButton btnAgregar  = new JButton("➕ Agregar");
         JButton btnEditar   = new JButton("✏️ Editar");
@@ -168,7 +154,6 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // ==================== PANEL ÍTEMS ====================
 
     private JPanel panelItems() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -286,7 +271,6 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // ==================== PANEL PRÉSTAMOS ====================
 
     private JPanel panelPrestamos() {
         JPanel panel = new JPanel(new BorderLayout(5, 5));
@@ -337,10 +321,8 @@ public class VentanaPrincipal extends JFrame {
             return;
         }
 
-        // Selector de usuario
         JComboBox<Usuario> cbUsuario = new JComboBox<>(usuarios.toArray(new Usuario[0]));
 
-        // Lista de ítems con selección múltiple
         JList<Item> listaItems = new JList<>(disponibles.toArray(new Item[0]));
         listaItems.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         JScrollPane scrollItems = new JScrollPane(listaItems);
@@ -437,7 +419,6 @@ public class VentanaPrincipal extends JFrame {
     private void cargarPrestamos() {
         modeloPrestamos.setRowCount(0);
         for (Prestamo p : control.getPrestamos()) {
-            // Construir lista de nombres de ítems
             StringBuilder items = new StringBuilder();
             for (Item i : p.getItems()) {
                 if (items.length() > 0) items.append(", ");
@@ -453,7 +434,6 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // ==================== PANEL CATÁLOGOS (TIPOS Y CATEGORÍAS) ====================
 
     private JPanel panelCatalogos() {
         JPanel panel = new JPanel(new GridLayout(1, 2, 10, 0));
@@ -571,12 +551,6 @@ public class VentanaPrincipal extends JFrame {
         }
     }
 
-    // ==================== MÉTODO AUXILIAR ====================
-
-    /**
-     * Construye un formulario genérico con etiquetas y campos
-     * Muy útil para no repetir código en cada diálogo
-     */
     private JPanel buildForm(String[] labels, JComponent[] fields) {
         JPanel form = new JPanel(new GridLayout(labels.length, 2, 5, 5));
         form.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
